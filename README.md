@@ -4,7 +4,11 @@ A Python CLI tool to extract ERA5-Land hourly climate data from Google Earth Eng
 
 This tool is ideal for initializing meteorological forcing for lake models such as GLM-AED.
 
-## Features
+glm-met is under development, use wisely 
+
+---
+
+## 📦 Features
 
 - Automatically reads `latitude` and `longitude` from a `glm3.nml` file
 - Queries hourly ERA5-Land data for:
