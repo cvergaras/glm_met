@@ -31,11 +31,11 @@
 /
 &time
    timefmt = 2
-   start = '1997-04-16 00:00'
-   stop = '1997-04-17 00:00'
+   start = '1997-04-14 00:00'
+   stop = '2007-04-17 00:00'
    dt = 3600
    num_days = 1
-   timezone = 7
+   timezone = -5
 /
 &output
    out_dir = './'
