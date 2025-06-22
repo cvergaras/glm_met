@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: glm-met
+Version: 0.1
+Summary: Download ERA5-Land hourly climate data using GLM .nml location
+Home-page: UNKNOWN
+Author: Your Name
+License: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.7
+
+UNKNOWN
+

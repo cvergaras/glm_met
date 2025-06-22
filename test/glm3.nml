@@ -1,0 +1,139 @@
+&glm_setup
+   sim_name = 'sparkling_glm'
+   max_layers = 500
+   min_layer_vol = 0.025
+   min_layer_thick = 0.15
+   max_layer_thick = 0.5
+   non_avg = .true.
+   density_model = 1
+/
+&mixing
+   surface_mixing = 1
+   coef_mix_conv = 0.2
+   coef_wind_stir = 0.402
+   coef_mix_shear = 0.2
+   coef_mix_turb = 0.51
+   coef_mix_KH = 0.3
+   coef_mix_hyp = 0.5
+   diff = 0
+   deep_mixing = 2
+/
+&morphometry
+   lake_name = 'SparklingLake'
+   latitude = 46.00881
+   longitude = -89.69953
+   crest_elev = 190
+   bsn_len = 901.0385
+   bsn_wid = 901.0385
+   bsn_vals = 21
+   H = 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190
+   A = 0, 2290.22104446696, 44488.0935674851, 78426.7190042156, 114608.441595609, 149301.049269201, 185507.904601824, 218956.441584594, 255175.863287831, 290333.426674154, 323712.848618546, 358908.111116712, 393691.824977259, 430084.034276443, 463246.686327737, 500144.692044149, 533266.503390946, 570123.668402861, 602695.70103528, 639003.087332817, 688084.189359851
+/
+&time
+   timefmt = 2
+   start = '1997-04-16 00:00'
+   stop = '1997-04-17 00:00'
+   dt = 3600
+   num_days = 1
+   timezone = 7
+/
+&output
+   out_dir = './'
+   out_fn = 'output'
+   nsave = 24
+   csv_lake_fname = 'lake'
+/
+&init_profiles
+   lake_depth = 10.28793
+   num_heights = 33
+   the_heights = 0.460727080826829, 0.921454161653658, 1.25524552428895, 1.46980858845069, 1.7204269445593, 2.01976002013692, 2.30344614274193, 2.52729815638561, 2.71670374500463, 2.88168218249176, 3.3403614289784, 3.72887980029715, 4.06552229969547, 4.3813671532133, 4.6672404376579, 4.93002842383843, 5.42007682561676, 5.85902819337029, 6.26574439063877, 6.64481417961749, 6.99839870009297, 7.33705119247328, 7.65770544042659, 7.96267643595523, 8.25699684567294, 8.53963089836216, 8.81153467053563, 9.07458345577477, 9.33142118232979, 9.58027975978912, 9.82174176749081, 10.0569929763841, 10.2879346965057
+   the_temps = 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 3.94817320571949, 0
+   the_sals = 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601, 1.00001357764601
+   num_wq_vars = 0
+   wq_names = 'TRC_tr1','TRC_tr2','OXY_oxy'
+   wq_init_vals = 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 283.23, 203.23, 190.906, 283.23, 203.23, 190.906, 283.23, 203.23, 190.906, 283.23, 203.23, 190.906
+   restart_variables = 10.0569929763841, 0.230382357279707, 0.00114349519592233, 5.41089150818951e-08, 76025924.3724989, 0, 1, 19, 24.5782010575353, 24, 5.57820105753535, 10.0569929763841, 0, 0, 0, 0, 0.000316227766016838
+   snow_thickness = 0
+   white_ice_thickness = 0
+   blue_ice_thickness = 0
+   avg_surf_temp = 0.8396945
+   restart_mixer_count = 5
+/
+&meteorology
+   met_sw = .true.
+   meteo_fl = 'input/nldas_driver.csv'
+   subdaily = .true.
+   rad_mode = 1
+   sw_factor = 1.08
+   lw_type = 'LW_IN'
+   cloud_mode = 4
+   lw_factor = 1
+   atm_stab = 0
+   rh_factor = 1
+   at_factor = 1
+   ce = 0.00132
+   ch = 0.0014
+   rain_sw = .false.
+   rain_factor = 1
+   catchrain = .false.
+   rain_threshold = 0.01
+   runoff_coef = 0.3
+   cd = 0.0013
+   wind_factor = 1
+   fetch_mode = 0
+/
+&light
+   light_mode = 0
+   Kw = 0.331
+   n_bands = 4
+   light_extc = 1, 0.5, 2, 4
+   energy_frac = 0.51, 0.45, 0.035, 0.005
+   Benthic_Imin = 10
+/
+&bird_model
+   AP = 973
+   Oz = 0.279
+   WatVap = 1.1
+   AOD500 = 0.033
+   AOD380 = 0.038
+   Albedo = 0.2
+/
+&inflow
+   num_inflows = 133
+   names_of_strms = 'GW1','GW2','GW3','GW4','GW5','GW6','GW7','GW8','GW9','GW10','GW11','GW12','GW13','GW14','GW15','GW16','GW17','GW18','GW19','GW20','GW21','GW22','GW23','GW24','GW25','GW26','GW27','GW28','GW29','GW30','GW31','GW32','GW33','GW34','GW35','GW36','GW37','GW38','GW39','GW40','GW41','GW42','GW43','GW44','GW45','GW46','GW47','GW48','GW49','GW50','GW51','GW52','GW53','GW54','GW55','GW56','GW57','GW58','GW59','GW60','GW61','GW62','GW63','GW64','GW65','GW66','GW67','GW68','GW69','GW70','GW71','GW72','GW73','GW74','GW75','GW76','GW77','GW78','GW79','GW80','GW81','GW82','GW83','GW84','GW85','GW86','GW87','GW88','GW89','GW90','GW91','GW92','GW93','GW94','GW95','GW96','GW97','GW98','GW99','GW100','GW101','GW102','GW103','GW104','GW105','GW106','GW107','GW108','GW109','GW110','GW111','GW112','GW113','GW114','GW115','GW116','GW117','GW118','GW119','GW120','GW121','GW122','GW123','GW124','GW125','GW126','GW127','GW128','GW129','GW130','GW131','GW132','GW133'
+   subm_flag = .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true., .true.
+   subm_elev = 19.5, 19.5, 19.5, 19.5, 18.5, 18.5, 18.5, 18.5, 18.5, 18.5, 17.5, 17.5, 17.5, 17.5, 16.5, 16.5, 16.5, 16.5, 15.5, 15.5, 15.5, 15.5, 15.5, 15.5, 14.5, 14.5, 14.5, 14.5, 13.5, 13.5, 13.5, 13.5, 13.5, 13.5, 12.5, 12.5, 12.5, 12.5, 11.5, 11.5, 11.5, 11.5, 11.5, 11.5, 10.5, 10.5, 10.5, 10.5, 9.5, 9.5, 9.5, 9.5, 9.5, 9.5, 8.5, 8.5, 8.5, 8.5, 8.5, 8.5, 7.5, 7.5, 7.5, 7.5, 7.5, 7.5, 6.5, 6.5, 6.5, 6.5, 6.5, 6.5, 5.5, 5.5, 5.5, 5.5, 5.5, 5.5, 5.5, 5.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5
+   strm_hf_angle = 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65
+   strmbd_slope = 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3
+   strmbd_drag = 64, 64, 64, 64, 65, 65, 65, 65, 65, 65, 66, 66, 66, 66, 67, 67, 67, 67, 68, 68, 68, 68, 68, 68, 69, 69, 69, 69, 70, 70, 70, 70, 70, 70, 71, 71, 71, 71, 72, 72, 72, 72, 72, 72, 73, 73, 73, 73, 74, 74, 74, 74, 74, 74, 75, 75, 75, 75, 75, 75, 76, 76, 76, 76, 76, 76, 77, 77, 77, 77, 77, 77, 78, 78, 78, 78, 78, 78, 78, 78, 79, 79, 79, 79, 79, 79, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 81, 81, 81, 81, 81, 81, 81, 81, 81, 81, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 83, 83, 83, 83, 83, 83, 83
+   inflow_factor = 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+   inflow_fl = 'input/gw_inf_1.csv','input/gw_inf_2.csv','input/gw_inf_3.csv','input/gw_inf_4.csv','input/gw_inf_5.csv','input/gw_inf_6.csv','input/gw_inf_7.csv','input/gw_inf_8.csv','input/gw_inf_9.csv','input/gw_inf_10.csv','input/gw_inf_11.csv','input/gw_inf_12.csv','input/gw_inf_13.csv','input/gw_inf_14.csv','input/gw_inf_15.csv','input/gw_inf_16.csv','input/gw_inf_17.csv','input/gw_inf_18.csv','input/gw_inf_19.csv','input/gw_inf_20.csv','input/gw_inf_21.csv','input/gw_inf_22.csv','input/gw_inf_23.csv','input/gw_inf_24.csv','input/gw_inf_25.csv','input/gw_inf_26.csv','input/gw_inf_27.csv','input/gw_inf_28.csv','input/gw_inf_29.csv','input/gw_inf_30.csv','input/gw_inf_31.csv','input/gw_inf_32.csv','input/gw_inf_33.csv','input/gw_inf_34.csv','input/gw_inf_35.csv','input/gw_inf_36.csv','input/gw_inf_37.csv','input/gw_inf_38.csv','input/gw_inf_39.csv','input/gw_inf_40.csv','input/gw_inf_41.csv','input/gw_inf_42.csv','input/gw_inf_43.csv','input/gw_inf_44.csv','input/gw_inf_45.csv','input/gw_inf_46.csv','input/gw_inf_47.csv','input/gw_inf_48.csv','input/gw_inf_49.csv','input/gw_inf_50.csv','input/gw_inf_51.csv','input/gw_inf_52.csv','input/gw_inf_53.csv','input/gw_inf_54.csv','input/gw_inf_55.csv','input/gw_inf_56.csv','input/gw_inf_57.csv','input/gw_inf_58.csv','input/gw_inf_59.csv','input/gw_inf_60.csv','input/gw_inf_61.csv','input/gw_inf_62.csv','input/gw_inf_63.csv','input/gw_inf_64.csv','input/gw_inf_65.csv','input/gw_inf_66.csv','input/gw_inf_67.csv','input/gw_inf_68.csv','input/gw_inf_69.csv','input/gw_inf_70.csv','input/gw_inf_71.csv','input/gw_inf_72.csv','input/gw_inf_73.csv','input/gw_inf_74.csv','input/gw_inf_75.csv','input/gw_inf_76.csv','input/gw_inf_77.csv','input/gw_inf_78.csv','input/gw_inf_79.csv','input/gw_inf_80.csv','input/gw_inf_81.csv','input/gw_inf_82.csv','input/gw_inf_83.csv','input/gw_inf_84.csv','input/gw_inf_85.csv','input/gw_inf_86.csv','input/gw_inf_87.csv','input/gw_inf_88.csv','input/gw_inf_89.csv','input/gw_inf_90.csv','input/gw_inf_91.csv','input/gw_inf_92.csv','input/gw_inf_93.csv','input/gw_inf_94.csv','input/gw_inf_95.csv','input/gw_inf_96.csv','input/gw_inf_97.csv','input/gw_inf_98.csv','input/gw_inf_99.csv','input/gw_inf_100.csv','input/gw_inf_101.csv','input/gw_inf_102.csv','input/gw_inf_103.csv','input/gw_inf_104.csv','input/gw_inf_105.csv','input/gw_inf_106.csv','input/gw_inf_107.csv','input/gw_inf_108.csv','input/gw_inf_109.csv','input/gw_inf_110.csv','input/gw_inf_111.csv','input/gw_inf_112.csv','input/gw_inf_113.csv','input/gw_inf_114.csv','input/gw_inf_115.csv','input/gw_inf_116.csv','input/gw_inf_117.csv','input/gw_inf_118.csv','input/gw_inf_119.csv','input/gw_inf_120.csv','input/gw_inf_121.csv','input/gw_inf_122.csv','input/gw_inf_123.csv','input/gw_inf_124.csv','input/gw_inf_125.csv','input/gw_inf_126.csv','input/gw_inf_127.csv','input/gw_inf_128.csv','input/gw_inf_129.csv','input/gw_inf_130.csv','input/gw_inf_131.csv','input/gw_inf_132.csv','input/gw_inf_133.csv'
+   inflow_varnum = 6
+   inflow_vars = 'flow','temp','salt','TRC_tr1','TRC_tr2','OXY_oxy'
+/
+&outflow
+   num_outlet = 133
+   outflow_fl = 'input/gw_out_1.csv','input/gw_out_2.csv','input/gw_out_3.csv','input/gw_out_4.csv','input/gw_out_5.csv','input/gw_out_6.csv','input/gw_out_7.csv','input/gw_out_8.csv','input/gw_out_9.csv','input/gw_out_10.csv','input/gw_out_11.csv','input/gw_out_12.csv','input/gw_out_13.csv','input/gw_out_14.csv','input/gw_out_15.csv','input/gw_out_16.csv','input/gw_out_17.csv','input/gw_out_18.csv','input/gw_out_19.csv','input/gw_out_20.csv','input/gw_out_21.csv','input/gw_out_22.csv','input/gw_out_23.csv','input/gw_out_24.csv','input/gw_out_25.csv','input/gw_out_26.csv','input/gw_out_27.csv','input/gw_out_28.csv','input/gw_out_29.csv','input/gw_out_30.csv','input/gw_out_31.csv','input/gw_out_32.csv','input/gw_out_33.csv','input/gw_out_34.csv','input/gw_out_35.csv','input/gw_out_36.csv','input/gw_out_37.csv','input/gw_out_38.csv','input/gw_out_39.csv','input/gw_out_40.csv','input/gw_out_41.csv','input/gw_out_42.csv','input/gw_out_43.csv','input/gw_out_44.csv','input/gw_out_45.csv','input/gw_out_46.csv','input/gw_out_47.csv','input/gw_out_48.csv','input/gw_out_49.csv','input/gw_out_50.csv','input/gw_out_51.csv','input/gw_out_52.csv','input/gw_out_53.csv','input/gw_out_54.csv','input/gw_out_55.csv','input/gw_out_56.csv','input/gw_out_57.csv','input/gw_out_58.csv','input/gw_out_59.csv','input/gw_out_60.csv','input/gw_out_61.csv','input/gw_out_62.csv','input/gw_out_63.csv','input/gw_out_64.csv','input/gw_out_65.csv','input/gw_out_66.csv','input/gw_out_67.csv','input/gw_out_68.csv','input/gw_out_69.csv','input/gw_out_70.csv','input/gw_out_71.csv','input/gw_out_72.csv','input/gw_out_73.csv','input/gw_out_74.csv','input/gw_out_75.csv','input/gw_out_76.csv','input/gw_out_77.csv','input/gw_out_78.csv','input/gw_out_79.csv','input/gw_out_80.csv','input/gw_out_81.csv','input/gw_out_82.csv','input/gw_out_83.csv','input/gw_out_84.csv','input/gw_out_85.csv','input/gw_out_86.csv','input/gw_out_87.csv','input/gw_out_88.csv','input/gw_out_89.csv','input/gw_out_90.csv','input/gw_out_91.csv','input/gw_out_92.csv','input/gw_out_93.csv','input/gw_out_94.csv','input/gw_out_95.csv','input/gw_out_96.csv','input/gw_out_97.csv','input/gw_out_98.csv','input/gw_out_99.csv','input/gw_out_100.csv','input/gw_out_101.csv','input/gw_out_102.csv','input/gw_out_103.csv','input/gw_out_104.csv','input/gw_out_105.csv','input/gw_out_106.csv','input/gw_out_107.csv','input/gw_out_108.csv','input/gw_out_109.csv','input/gw_out_110.csv','input/gw_out_111.csv','input/gw_out_112.csv','input/gw_out_113.csv','input/gw_out_114.csv','input/gw_out_115.csv','input/gw_out_116.csv','input/gw_out_117.csv','input/gw_out_118.csv','input/gw_out_119.csv','input/gw_out_120.csv','input/gw_out_121.csv','input/gw_out_122.csv','input/gw_out_123.csv','input/gw_out_124.csv','input/gw_out_125.csv','input/gw_out_126.csv','input/gw_out_127.csv','input/gw_out_128.csv','input/gw_out_129.csv','input/gw_out_130.csv','input/gw_out_131.csv','input/gw_out_132.csv','input/gw_out_133.csv'
+   outflow_factor = 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+   outl_elvs = 189.5, 189.5, 189.5, 189.5, 188.5, 188.5, 188.5, 188.5, 188.5, 188.5, 187.5, 187.5, 187.5, 187.5, 186.5, 186.5, 186.5, 186.5, 185.5, 185.5, 185.5, 185.5, 185.5, 185.5, 184.5, 184.5, 184.5, 184.5, 183.5, 183.5, 183.5, 183.5, 183.5, 183.5, 182.5, 182.5, 182.5, 182.5, 181.5, 181.5, 181.5, 181.5, 181.5, 181.5, 180.5, 180.5, 180.5, 180.5, 179.5, 179.5, 179.5, 179.5, 179.5, 179.5, 178.5, 178.5, 178.5, 178.5, 178.5, 178.5, 177.5, 177.5, 177.5, 177.5, 177.5, 177.5, 176.5, 176.5, 176.5, 176.5, 176.5, 176.5, 175.5, 175.5, 175.5, 175.5, 175.5, 175.5, 175.5, 175.5, 174.5, 174.5, 174.5, 174.5, 174.5, 174.5, 173.5, 173.5, 173.5, 173.5, 173.5, 173.5, 173.5, 173.5, 173.5, 173.5, 172.5, 172.5, 172.5, 172.5, 172.5, 172.5, 172.5, 172.5, 172.5, 172.5, 171.5, 171.5, 171.5, 171.5, 171.5, 171.5, 171.5, 171.5, 171.5, 171.5, 171.5, 171.5, 171.5, 171.5, 171.5, 171.5, 171.5, 171.5, 171.5, 171.5, 170.5, 170.5, 170.5, 170.5, 170.5, 170.5, 170.5
+/
+&sediment
+   sed_heat_Ksoil = 2
+   sed_temp_depth = 0.2
+   sed_temp_mean = 4.5, 5, 6
+   sed_temp_amplitude = 1, 1, 1
+   sed_temp_peak_doy = 242, 242, 242
+   benthic_mode = 2
+   n_zones = 3
+   zone_heights = 10, 20, 30
+   sed_reflectivity = 0.1, 0.01, 0.01
+   sed_roughness = 0.1, 0.01, 0.01
+/
+&wq_setup
+   wq_lib = 'aed'
+   wq_nml_file = 'aed/aed.nml'
+   bioshade_feedback = .true.
+   ode_method = 1
+   split_factor = 1
+   repair_state = .true.
+/
