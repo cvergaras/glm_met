@@ -69,8 +69,8 @@ def fetch_era5_timeseries(lat, lon, start_date, end_date, tz_offset):
         records.append({
             'time': props['time'],
             'AirTemp': round(temp_k - 273.15, 2),
-            'ShortWave_Jm2': props.get('surface_solar_radiation_downwards', 0),
-            'LongWave_Jm2': props.get('surface_thermal_radiation_downwards', 0),
+            'ShortWave_Jm2': round(props.get('surface_solar_radiation_downwards', 0),2),
+            'LongWave_Jm2': round(props.get('surface_thermal_radiation_downwards', 0),2),
             'RelHum': round(calculate_relative_humidity(temp_k, dew_k), 2),
             'WindSpeed': round(wind_speed, 2),
             'Precipitation': round(props.get('total_precipitation_hourly', 0), 4),
