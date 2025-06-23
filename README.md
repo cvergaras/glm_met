@@ -50,7 +50,7 @@ glm-met glm3.nml --start 2015-07-15 --end 2015-07-16 --output met.csv
 ```
 
 - `glm3.nml`: Path to your GLM configuration file  
-- `--start` and `--end`: Date range in `YYYY-MM-DD` format  
+- `--start` and `--end`: Date range in `YYYY-MM-DD` format  (start and end are optional, default run will retrieve info from nml file)
 - `--output`: Path to output CSV file (default: `met.csv`)
 
 ## Output Format
