@@ -32,7 +32,7 @@
 &time
    timefmt = 2
    start = '1997-04-14 00:00'
-   stop = '2007-04-17 00:00'
+   stop = '1998-04-17 00:00'
    dt = 3600
    num_days = 1
    timezone = -5

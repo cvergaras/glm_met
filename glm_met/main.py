@@ -1,4 +1,5 @@
 import argparse
+from .climate import fetch_in_chunks 
 from .parser import (
     extract_lat_lon_from_nml,
     extract_timezone_from_nml,
@@ -29,7 +30,8 @@ def main():
 
     initialize_ee()
 
-    df = fetch_era5_timeseries(lat, lon, start, end, tz_offset)
+    # df = fetch_era5_timeseries(lat, lon, start, end, tz_offset)
+    df = fetch_in_chunks(lat, lon, start, end, tz_offset, chunk='month')
 
 
     columns = ['time', 'AirTemp', 'ShortWave', 'LongWave', 'RelHum', 'WindSpeed', 'Rain', 'Snow']
