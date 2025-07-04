@@ -36,7 +36,7 @@ This installs the CLI tool `glm-met`.
 Before your first use, you must authenticate with your Google Earth Engine account:
 
 ```bash
-python -c "import ee; ee.Authenticate(auth_mode='paste')"
+python -c "import ee; ee.Authenticate(auth_mode='notebook')"
 ```
 
 This will print a URL in your terminal. Open it in your browser, sign in with your Google account, and paste the generated token back into the terminal.
