@@ -65,6 +65,7 @@ def fetch_era5_timeseries(lat, lon, start_date, end_date, tz_offset):
         dew_k = props.get('dewpoint_temperature_2m', 273.15)
         u = props.get('u_component_of_wind_10m', 0)
         v = props.get('v_component_of_wind_10m', 0)
+        soil_temp = props.get('soil_temperature_level_1', 273.15)
         wind_speed = math.sqrt(u**2 + v**2)
         records.append({
             'time': props['time'],
@@ -73,8 +74,9 @@ def fetch_era5_timeseries(lat, lon, start_date, end_date, tz_offset):
             'LongWave_Jm2': round(props.get('surface_thermal_radiation_downwards', 0),2),
             'RelHum': round(calculate_relative_humidity(temp_k, dew_k), 2),
             'WindSpeed': round(wind_speed, 2),
-            'Precipitation': round(props.get('total_precipitation_hourly', 0), 4),
-            'Snow': round(props.get('snowfall_hourly', 0), 4),
+            'Precipitation': round(props.get('total_precipitation_hourly', 0), 4)*24,
+            'Snow': round(props.get('snowfall_hourly', 0), 4)*24,
+            'SoilTemp': round(soil_temp - 273.15, 2),
         })
 
     df = pd.DataFrame(records)
@@ -84,7 +86,7 @@ def fetch_era5_timeseries(lat, lon, start_date, end_date, tz_offset):
     for var in ['ShortWave_Jm2', 'LongWave_Jm2']:
         col = var.replace('_Jm2', '')
         df[col] = df[var].diff() / timestep
-        df[col] = df[col].clip(lower=0)
+        df[col] = df[col].clip(lower=0).round(2)
 
     df.drop(columns=['ShortWave_Jm2', 'LongWave_Jm2'], inplace=True)
     df['Rain'] = df['Precipitation'] - df['Snow']

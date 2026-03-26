@@ -34,7 +34,7 @@ def main():
     df = fetch_in_chunks(lat, lon, start, end, tz_offset, chunk='month')
 
 
-    columns = ['time', 'AirTemp', 'ShortWave', 'LongWave', 'RelHum', 'WindSpeed', 'Rain', 'Snow']
+    columns = ['time', 'AirTemp', 'ShortWave', 'LongWave', 'RelHum', 'WindSpeed', 'Rain', 'Snow', 'SoilTemp']
     df = df[columns]
     df.to_csv(args.output, index=False)
     print(f"Saved to {args.output}")
