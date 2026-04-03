@@ -17,6 +17,7 @@ glm-met is under development, use wisely
   - Relative humidity  
   - Wind speed  
   - Precipitation (rain & snow)
+  - Soil temperature at 7 cm depth
 - Outputs a time series CSV (`met.csv`) in GLM-friendly format
 
 ## Installation
@@ -46,11 +47,11 @@ Once authenticated, credentials will be stored and reused automatically — you 
 ### 2. Run the tool
 
 ```bash
-glm-met glm3.nml --start 2015-07-15 --end 2015-07-16 --output met.csv
+glm-met glm3.nml --output met.csv
 ```
 
 - `glm3.nml`: Path to your GLM configuration file  
-- `--start` and `--end`: Date range in `YYYY-MM-DD` format  (start and end are optional, default run will retrieve info from nml file)
+- `--start` and `--end`: Optional date range in `YYYY-MM-DD` format. If omitted, the tool reads `start` and `stop` from the `.nml` file.
 - `--output`: Path to output CSV file (default: `met.csv`)
 
 ## Output Format
@@ -58,9 +59,9 @@ glm-met glm3.nml --start 2015-07-15 --end 2015-07-16 --output met.csv
 The CSV output will look like this:
 
 ```
-time,AirTemp,ShortWave,LongWave,RelHum,WindSpeed,Rain,Snow
-2015-07-15 00:00,24.79,1.75,402.41,79.75,1.73,0,0
-2015-07-15 01:00,20.92,0.00,398.39,81.88,1.71,0,0
+time,AirTemp,ShortWave,LongWave,RelHum,WindSpeed,Rain,Snow,SoilTemp
+2015-07-15 00:00,24.79,1.75,402.41,79.75,1.73,0,0,18.42
+2015-07-15 01:00,20.92,0.00,398.39,81.88,1.71,0,0,18.17
 ...
 ```
 
@@ -70,6 +71,7 @@ Units:
 - RelHum: %  
 - WindSpeed: m/s  
 - Rain / Snow: mm
+- SoilTemp: °C at 7 cm depth
 
 ## Requirements
 
