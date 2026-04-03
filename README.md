@@ -25,15 +25,15 @@ glm-met is under development, use wisely
 ```bash
 git clone <this-repo-url>
 cd glm_met
-pip install -e .
+pip install .
 ```
 
-This installs the CLI tool `glm-met`.
+This installs the package, its dependencies, and the CLI tool `glm-met`.
 
-Alternatively, install the dependencies from `requirements.txt`:
+For development, you can install in editable mode instead:
 
 ```bash
-pip install -r requirements.txt
+pip install -e .
 ```
 
 ## Usage

@@ -7,6 +7,7 @@ setup(
     install_requires=[
         "earthengine-api",
         "pandas",
+        "python-dateutil",
         "tqdm"
     ],
     entry_points={
