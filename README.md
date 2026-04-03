@@ -30,6 +30,12 @@ pip install -e .
 
 This installs the CLI tool `glm-met`.
 
+Alternatively, install the dependencies from `requirements.txt`:
+
+```bash
+pip install -r requirements.txt
+```
+
 ## Usage
 
 ### 1. Authenticate with Google Earth Engine (first time only)
