@@ -1,3 +1,2 @@
 [console_scripts]
 glm-met = glm_met.main:main
-
