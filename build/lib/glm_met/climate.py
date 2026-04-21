@@ -5,27 +5,12 @@ from .utils import calculate_relative_humidity
 from datetime import datetime, timezone, timedelta
 from dateutil.relativedelta import relativedelta
 
-def initialize_ee(project):
+def initialize_ee():
     try:
-        ee.Initialize(project=project)
+        ee.Initialize(project="pit_lake")
     except Exception:
-        print("\n[INFO] Earth Engine credentials not found or expired.")
-        print("[INFO] A browser window will open for authentication.")
-        print("[INFO] If you are on a remote server, copy the URL and open it locally.\n")
-        try:
-            ee.Authenticate(auth_mode='notebook')
-        except Exception as e:
-            raise SystemExit(
-                "\n[ERROR] Earth Engine authentication failed.\n"
-                "Please ensure you have:\n"
-                "  1. A Google Cloud project with the Earth Engine API enabled\n"
-                "     -> https://console.cloud.google.com/apis/library/earthengine.googleapis.com\n"
-                "  2. Registered the project for Earth Engine access\n"
-                "     -> https://code.earthengine.google.com/register\n"
-                "  3. Run: earthengine authenticate --auth_mode=notebook\n"
-                f"\nOriginal error: {e}"
-            )
-        ee.Initialize(project=project)
+        ee.Authenticate()
+        ee.Initialize(project="pit_lake")
 
 def print_timestep_duration(collection):
     sorted_collection = collection.sort('system:time_start')
