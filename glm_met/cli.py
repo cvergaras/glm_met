@@ -66,7 +66,7 @@ def run_fetch(args):
         start_nml, stop_nml = extract_start_stop_from_nml(args.nml_file)
         start = start or start_nml.split()[0]
         end = end or stop_nml.split()[0]
-    print(f"[INFO] Site: lat={lat}, lon={lon}, UTC{tz_offset:+d} | "
+    print(f"[INFO] Site: lat={lat}, lon={lon}, UTC{tz_offset:+g} | "
           f"{start} to {end} | source: {source_name}")
 
     lw_type = extract_lw_type_from_nml(args.nml_file)

@@ -47,6 +47,29 @@ def _fetch_silo_daily(lat, lon, start, end, email):
     return daily
 
 
+def _print_adjustment_summary(base, daily):
+    """Report how far the SILO daily values moved the Open-Meteo base series."""
+    om = base.assign(_day=base['time'].dt.normalize()).groupby('_day').agg(
+        om_temp=('AirTemp', 'mean'),
+        om_rain=('Rain', 'mean'),      # mean intensity m/day == daily total m
+        om_sw=('ShortWave', 'mean'),
+    )
+    rep = om.join(daily, how='left')
+    matched = rep['temp_mean'].notna()
+    print(f"[INFO] SILO adjustment: {int(matched.sum())}/{len(rep)} days matched")
+    if not matched.any():
+        return
+    rep = rep[matched]
+    temp_offset = rep['temp_mean'] - rep['om_temp']
+    sw_factor = (rep['rad_wm2'] / rep['om_sw'].replace(0, np.nan)).dropna()
+    print(f"[INFO]   AirTemp daily offset: mean {temp_offset.mean():+.2f} degC, "
+          f"mean magnitude {temp_offset.abs().mean():.2f} degC")
+    print(f"[INFO]   Rain total: SILO {rep['rain_m'].sum() * 1000:.0f} mm "
+          f"vs Open-Meteo {rep['om_rain'].sum() * 1000:.0f} mm")
+    print(f"[INFO]   ShortWave daily factor: mean {sw_factor.mean():.2f} "
+          f"(range {sw_factor.min():.2f} to {sw_factor.max():.2f})")
+
+
 def _adjust_hourly_to_daily(base, daily):
     """Scale/shift the hourly Open-Meteo series so daily aggregates match SILO.
 
@@ -65,6 +88,8 @@ def _adjust_hourly_to_daily(base, daily):
     if missing_days:
         print(f"[WARN] {missing_days} days have no SILO data; "
               "Open-Meteo values kept unadjusted there")
+
+    _print_adjustment_summary(base, daily)
 
     om_temp_mean = df.groupby('_day')['AirTemp'].transform('mean')
     df.loc[have, 'AirTemp'] += (df['temp_mean'] - om_temp_mean)[have]

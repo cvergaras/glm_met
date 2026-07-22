@@ -15,9 +15,9 @@ def extract_lat_lon_from_nml(nml_path):
 def extract_timezone_from_nml(nml_path):
     with open(nml_path, 'r') as f:
         content = f.read()
-    m = re.search(r'timezone\s*=\s*([+-]?\d+)', content)
+    m = re.search(r'timezone\s*=\s*([+-]?\d+(?:\.\d+)?)', content)
     if m:
-        return int(m.group(1))
+        return float(m.group(1))
     else:
         raise ValueError("Could not find 'timezone' in NML file.")
     
