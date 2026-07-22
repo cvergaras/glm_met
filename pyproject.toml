@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "glm-met"
+version = "0.2.0"
+description = "Build GLM meteorological forcing files from Open-Meteo, SILO or Google Earth Engine"
+authors = [{ name = "Claudio Vergara-Saez" }]
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "numpy",
+    "pandas",
+    "requests",
+    "python-dateutil",
+]
+
+[project.optional-dependencies]
+gee = ["earthengine-api"]
+dev = ["pytest", "responses"]
+
+[project.scripts]
+glm-met = "glm_met.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["glm_met*"]

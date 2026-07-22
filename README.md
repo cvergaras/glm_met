@@ -1,110 +1,106 @@
 # glm_met
 
-A Python CLI tool to extract ERA5-Land hourly climate data from Google Earth Engine (GEE), using location coordinates read from a GLM `.nml` configuration file.
+Build a meteorological forcing file (`met.csv`) for the [General Lake Model (GLM)](https://github.com/AquaticEcoDynamics/GLM) from a `glm3.nml` file — with **no account, no API key and no setup** in the default configuration.
 
-This tool is ideal for initializing meteorological forcing for lake models such as GLM-AED.
+The tool reads `latitude`, `longitude`, `timezone`, `start` and `stop` from your GLM `.nml` file, downloads hourly meteorological data, converts everything to GLM conventions and writes a ready-to-use `met.csv`.
 
-glm-met is under development, use wisely 
-
----
-
-## 📦 Features
-
-- Automatically reads `latitude` and `longitude` from a `glm3.nml` file
-- Queries hourly ERA5-Land data for:
-  - Air temperature  
-  - Shortwave & Longwave radiation  
-  - Relative humidity  
-  - Wind speed  
-  - Precipitation (rain & snow)
-  - Soil temperature at 7 cm depth
-- Outputs a time series CSV (`met.csv`) in GLM-friendly format
-
-## Installation
+## Quickstart
 
 ```bash
-git clone <this-repo-url>
-cd glm_met
 pip install .
+glm-met glm3.nml
 ```
 
-This installs the package, its dependencies, and the CLI tool `glm-met`.
+That's it — this uses the Open-Meteo archive (ERA5 family reanalysis) and needs no registration.
 
-For development, you can install in editable mode instead:
+## Data sources
+
+| Source | Coverage | Timestep | Auth required | Notes |
+|---|---|---|---|---|
+| `openmeteo` (default) | Global, 1940–present | hourly | none | ERA5 / ERA5-Land via the free [Open-Meteo archive API](https://open-meteo.com/en/docs/historical-weather-api) |
+| `silo` | Australia, 1889–present | hourly | email address only | **SILO-corrected hourly**: Open-Meteo hourly base, adjusted per day so temperature, rain and solar match [SILO](https://www.longpaddock.qld.gov.au/silo/)'s station-interpolated daily grids |
+| `gee` | Global, 1950–present | hourly | Google Cloud project registered with Earth Engine | Original ERA5-Land path; kept for users who already have credentials (`pip install .[gee]`) |
 
 ```bash
-pip install -e .
+# default (Open-Meteo, ERA5 family)
+glm-met glm3.nml
+
+# pin the reanalysis model
+glm-met glm3.nml --model era5_land
+
+# Australia, corrected against SILO daily grids
+glm-met glm3.nml --source silo --email you@example.com   # or set GLM_MET_SILO_EMAIL
+
+# legacy Google Earth Engine path
+pip install .[gee]
+glm-met glm3.nml --project YOUR_GCP_PROJECT              # implies --source gee
+glm-met gee-logout                                       # remove stored EE credentials
 ```
 
-## Usage
+Common options: `--start/--end YYYY-MM-DD` (default: from the nml `&time` block), `--output met.csv`, `--rain-units {m/day,mm/day,mm/hour}`, `--keep-cloud` (adds a `Cloud` fraction column).
 
-### 1. Authenticate with Google Earth Engine (first time only)
-
-Before your first use, you must authenticate with your Google Earth Engine account:
-
-```bash
-python -c "import ee; ee.Authenticate(auth_mode='notebook')"
-```
-
-This will print a URL in your terminal. Open it in your browser, sign in with your Google account, and paste the generated token back into the terminal.
-
-Once authenticated, credentials will be stored and reused automatically — you only need to do this once per machine.
-
-### 2. Run the tool
-
-```bash
-glm-met glm3.nml --output met.csv
-```
-
-- `glm3.nml`: Path to your GLM configuration file  
-- `--start` and `--end`: Optional date range in `YYYY-MM-DD` format. If omitted, the tool reads `start` and `stop` from the `.nml` file.
-- `--output`: Path to output CSV file (default: `met.csv`)
-
-## Output Format
-
-The CSV output will look like this:
+## Output format
 
 ```
 time,AirTemp,ShortWave,LongWave,RelHum,WindSpeed,Rain,Snow,SoilTemp
-2015-07-15 00:00,24.79,1.75,402.41,79.75,1.73,0,0,18.42
-2015-07-15 01:00,20.92,0.00,398.39,81.88,1.71,0,0,18.17
-...
+2000-06-01 00:00,13.1,0.0,380.71,57.0,3.57,0.0168,0.0,13.9
+2000-06-01 01:00,11.8,0.0,373.84,73.0,3.51,0.0312,0.0,13.1
 ```
 
-Units:
-- AirTemp: °C  
-- ShortWave / LongWave: W/m²  
-- RelHum: %  
-- WindSpeed: m/s  
-- Rain / Snow: mm
-- SoilTemp: °C at 7 cm depth
+| Column | Unit | GLM setting |
+|---|---|---|
+| AirTemp | °C | |
+| ShortWave | W/m² | `met_sw = .true.` |
+| LongWave | W/m² (incoming) | `lw_type = 'LW_IN'` |
+| RelHum | % | |
+| WindSpeed | m/s | |
+| Rain | **m/day** (GLM's default rain intensity, even in hourly files) | `rain_factor = 1.0` |
+| Snow | m/day water-equivalent | `snow_sw = .true.` if used |
+| SoilTemp | °C (~0–7 cm depth) | extra column; ignored by GLM |
 
-## Requirements
+Times are local standard time (the nml `timezone` offset applied to UTC data).
 
-- Python ≥ 3.7  
-- Internet access  
-- Earth Engine account: [https://signup.earthengine.google.com](https://signup.earthengine.google.com)
+### Longwave radiation
+
+Open-Meteo and SILO do not provide incoming longwave radiation, so `LongWave` is **estimated** from air temperature, humidity and cloud cover: Brutsaert (1975) clear-sky emissivity with the Crawford & Duchon (1999) cloud correction. Compared against ERA5's radiative-transfer longwave this estimate is typically within a few tens of W/m² but smoother hour-to-hour. If your application is sensitive to longwave, use `--source gee` (ERA5-Land's own `surface_thermal_radiation_downwards`) or supply measured values.
+
+### SILO-corrected hourly (`--source silo`)
+
+For Australian sites, SILO's daily grids (interpolated from Bureau of Meteorology stations) are usually closer to ground truth than raw reanalysis, but they are daily and lack wind and longwave. This source keeps the hourly *shape* from Open-Meteo and forces the daily *aggregates* to match SILO:
+
+- **AirTemp**: shifted per day so the daily mean equals SILO's `(max_temp + min_temp)/2`
+- **Rain**: scaled per day so the daily total equals SILO's `daily_rain` (SILO rain on a reanalysis-dry day is spread uniformly; SILO-dry days are zeroed)
+- **ShortWave**: scaled per day so the daily mean equals SILO's `radiation`
+- **RelHum**: recomputed from SILO's vapour pressure against the adjusted temperature
+- **WindSpeed / Snow / SoilTemp**: Open-Meteo passthrough; **LongWave** re-derived from the adjusted values
+
+## Python API
+
+```python
+from glm_met import fetch_met
+
+df = fetch_met(lat=-27.5, lon=151.9, start='2020-01-01', end='2020-12-31',
+               tz_offset=10, source='silo', email='you@example.com')
+df.to_csv('met.csv', index=False)
+```
 
 ## Development
 
-This package uses:
-
-- `earthengine-api`  
-- `pandas`  
-- `tqdm`
-
-## Example `glm3.nml` File
-
-```fortran
-&morphometry
-   lake_name = 'Sparkling Lake'
-   latitude = 46.00881
-   longitude = -89.69953
-   crest_elev = 190.0
-/
+```bash
+pip install -e .[dev]
+pytest
 ```
+
+Tests run offline against recorded API responses in `tests/fixtures/`.
+
+## Roadmap
+
+- Validation of any source against local measurements (stats, plots, optional bias correction)
+- SILO PatchedPoint (station) mode
+- Cloud-cover output for GLM's `lw_type = 'LW_CC'`
+- NASA POWER source
 
 ## Contact
 
-Developed by Claudio Vergara-Saez 
+Developed by Claudio Vergara-Saez.
 Feel free to submit issues or suggestions.

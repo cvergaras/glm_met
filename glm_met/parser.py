@@ -21,6 +21,13 @@ def extract_timezone_from_nml(nml_path):
     else:
         raise ValueError("Could not find 'timezone' in NML file.")
     
+def extract_lw_type_from_nml(nml_path):
+    """Return the lw_type setting (e.g. 'LW_IN'), or None if not present."""
+    with open(nml_path, 'r') as f:
+        content = f.read()
+    m = re.search(r"lw_type\s*=\s*'([^']+)'", content)
+    return m.group(1).strip() if m else None
+
 def extract_start_stop_from_nml(nml_path):
     with open(nml_path, 'r') as f:
         content = f.read()
