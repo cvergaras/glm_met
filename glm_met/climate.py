@@ -1,9 +1,32 @@
+import os
+
 import ee
 import pandas as pd
 import math
 from .utils import calculate_relative_humidity
 from datetime import datetime, timezone, timedelta
 from dateutil.relativedelta import relativedelta
+
+
+def clear_ee_credentials():
+    """Remove stored Earth Engine OAuth credentials (same as 'logging out' locally).
+
+    Deletes ``~/.config/earthengine/credentials``. Next use of ``initialize_ee`` will
+    run the browser / notebook auth flow again. Does not revoke the token on
+    Google's servers; for that, use your Google Account security settings.
+
+    If you authenticated via Application Default Credentials (``gcloud auth
+    application-default login``), sign out there separately — that uses a
+    different file under ``~/.config/gcloud/``.
+    """
+    path = ee.oauth.get_credentials_path()
+    client_id = path + '-client-id.json'
+    for p in (path, client_id):
+        try:
+            os.remove(p)
+        except FileNotFoundError:
+            pass
+
 
 def initialize_ee(project):
     try:
