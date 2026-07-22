@@ -1,4 +1,0 @@
-earthengine-api
-pandas
-python-dateutil
-tqdm
