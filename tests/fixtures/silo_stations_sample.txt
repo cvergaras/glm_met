@@ -1,0 +1,30 @@
+Number|Station name                             |Latitude|Longitud|Stat|Elevat.|Distance (km)
+ 14723|BORROLOOLA AIRPORT                       |-16.0755|136.3041|NT  |   16.1|870.2
+ 14710|BORROLOOLA                               |-16.0667|136.3000|NT  |   17.0|870.9
+ 14518|GROOTE EYLANDT AIRPORT                   |-13.9746|136.4630|NT  |   13.7|958.4
+ 14511|GROOTE EYLANDT AIRPORT                   |-13.9761|136.4616|NT  |   14.0|958.4
+ 14507|ALYANGULA POLICE                         |-13.8483|136.4198|NT  |   20.0|969.2
+ 14505|NUMBULWAR                                |-14.2786|135.7390|NT  |   10.0|1002.5
+ 41529|TOOWOOMBA AIRPORT                        |-27.5425|151.9134|QLD |  640.9|1108.8
+ 41103|TOOWOOMBA                                |-27.5836|151.9317|QLD |  691.0|1113.0
+ 14015|DARWIN AIRPORT                           |-12.4239|130.8925|NT  |   30.4|1516.0
+  9021|PERTH AIRPORT M.O.                       |-31.9275|115.9764|WA  |   15.4|3096.2
+ 36066|BEACONSFIELD                             |-23.3269|144.5964|QLD |  230.0|387.3
+ 39200|REDBANK                                  |-23.1111|149.9142|QLD |   52.0|667.9
+ 39218|MOOLBOOLAMAN                             |-25.0092|151.8100|QLD |  105.0|932.0
+ 14621|NUTWOOD DOWNS                            |-15.8087|134.1477|NT  |  183.0|1080.8
+ 40180|MARGATE COLLINS ST                       |-27.2517|153.1008|QLD |   10.0|1173.7
+ 51032|MOUNT TENANDRA                           |-31.2000|148.7000|NSW |  298.7|1252.7
+ 47047|TOLARNO                                  |-32.7833|142.3833|NSW |   54.9|1345.9
+ 19012|ORROROO (KYLMORN)                        |-32.7053|138.7796|SA  |  428.0|1435.3
+ 75031|HAY (MILLER STREET)                      |-34.5194|144.8545|NSW |   93.3|1506.5
+ 75118|PUCKAWIDGEE BACK                         |-35.1000|145.2000|NSW |   97.4|1566.1
+ 23752|WILLIAMSTOWN                             |-34.6508|138.8780|SA  |  260.0|1613.2
+ 80000|BARMAH EAST                              |-36.0167|145.0000|VIC |  126.5|1656.7
+ 25525|BORDERTOWN (INGLEWOOD)                   |-36.1881|140.7999|SA  |   98.0|1709.0
+ 26099|NARACOORTE AERODROME                     |-36.9813|140.7270|SA  |   49.7|1788.2
+ 86147|ASPENDALE CSIRO                          |-38.0333|145.1000|VIC |    5.0|1858.6
+ 91057|LOW HEAD (COMPARISON)                    |-41.0567|146.7883|TAS |   28.0|2173.3
+  4004|BAMBOO CREEK                             |-20.9264|120.2075|WA  |  250.0|2415.6
+  7007|BOOLARDY                                 |-26.9839|116.5353|WA  |  300.0|2878.3
+  5007|LEARMONTH AIRPORT                        |-22.2406|114.0967|WA  |    5.0|3034.9

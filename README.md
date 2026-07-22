@@ -74,6 +74,8 @@ For Australian sites, SILO's daily grids (interpolated from Bureau of Meteorolog
 - **RelHum**: recomputed from SILO's vapour pressure against the adjusted temperature
 - **WindSpeed / Snow / SoilTemp**: Open-Meteo passthrough; **LongWave** re-derived from the adjusted values
 
+Each run reports the nearest BoM stations feeding SILO's interpolation at your site (with distances) and an adjustment summary (days matched, temperature offset, rain totals, shortwave factors), so you can see exactly what SILO changed. Add `--plot [file.png]` for a daily-aggregate comparison figure of raw ERA5 vs SILO vs the adjusted output (`pip install .[plots]` for matplotlib).
+
 ## Python API
 
 ```python

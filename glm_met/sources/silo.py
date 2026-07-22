@@ -9,6 +9,7 @@ from .base import MetSource
 from .openmeteo import OpenMeteoSource
 
 DATADRILL_URL = "https://www.longpaddock.qld.gov.au/cgi-bin/silo/DataDrillDataset.php"
+PATCHEDPOINT_URL = "https://www.longpaddock.qld.gov.au/cgi-bin/silo/PatchedPointDataset.php"
 
 # Australia (SILO grid coverage), roughly
 LAT_RANGE = (-44.5, -9.0)
@@ -45,6 +46,36 @@ def _fetch_silo_daily(lat, lon, start, end, email):
         'vp_hpa': df['vp'].to_numpy(),
     }, index=pd.DatetimeIndex(df['date'], name='date'))
     return daily
+
+
+def _nearest_stations(lat, lon, n=5):
+    """Nearest BoM stations in SILO's network, with distances in km.
+
+    DataDrill is gridded data interpolated from these stations; how close and
+    numerous they are indicates how well-anchored the grid is at a site.
+    SILO's 'near' query needs a station anchor, so we fetch the full national
+    list (radius large enough to span Australia) and rank by distance locally.
+    """
+    resp = requests.get(PATCHEDPOINT_URL,
+                        params={'format': 'near', 'station': 30068,
+                                'radius': 10000},
+                        timeout=120)
+    resp.raise_for_status()
+    df = pd.read_csv(StringIO(resp.text), sep='|', skipinitialspace=True)
+    df.columns = [c.strip() for c in df.columns]
+    df = df.rename(columns={'Number': 'number', 'Station name': 'name',
+                            'Latitude': 'lat', 'Longitud': 'lon',
+                            'Stat': 'state'})
+    df['name'] = df['name'].str.strip()
+
+    lat1, lon1 = np.radians(lat), np.radians(lon)
+    lat2, lon2 = np.radians(df['lat']), np.radians(df['lon'])
+    a = (np.sin((lat2 - lat1) / 2) ** 2
+         + np.cos(lat1) * np.cos(lat2) * np.sin((lon2 - lon1) / 2) ** 2)
+    df['distance_km'] = 6371.0 * 2 * np.arcsin(np.sqrt(a))
+    return (df.sort_values('distance_km').head(n)
+            [['number', 'name', 'state', 'lat', 'lon', 'distance_km']]
+            .reset_index(drop=True))
 
 
 def _print_adjustment_summary(base, daily):
@@ -138,6 +169,19 @@ class SiloSource(MetSource):
                 f"[ERROR] SILO only covers Australia (lat {LAT_RANGE}, lon {LON_RANGE}); "
                 f"got lat={lat}, lon={lon}. Use --source openmeteo instead."
             )
+        try:
+            stations = _nearest_stations(lat, lon)
+            print("[INFO] SILO DataDrill is gridded data interpolated from BoM "
+                  "stations; nearest to this site:")
+            for _, s in stations.iterrows():
+                print(f"[INFO]   {int(s['number']):>6d} {s['name']} "
+                      f"({s['state']}), {s['distance_km']:.0f} km")
+        except Exception as e:
+            print(f"[WARN] Could not retrieve nearby SILO stations: {e}")
+
         daily = _fetch_silo_daily(lat, lon, start, end, self.email)
         base = OpenMeteoSource(model=self.model).fetch(lat, lon, start, end, tz_offset)
-        return _adjust_hourly_to_daily(base, daily)
+        adjusted = _adjust_hourly_to_daily(base, daily)
+        # kept for post-fetch reporting (e.g. the CLI --plot option)
+        self.comparison = {'base': base, 'daily': daily, 'adjusted': adjusted}
+        return adjusted

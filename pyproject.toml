@@ -18,7 +18,8 @@ dependencies = [
 
 [project.optional-dependencies]
 gee = ["earthengine-api"]
-dev = ["pytest", "responses"]
+plots = ["matplotlib"]
+dev = ["pytest", "responses", "matplotlib"]
 
 [project.scripts]
 glm-met = "glm_met.cli:main"

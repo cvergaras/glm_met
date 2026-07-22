@@ -38,6 +38,9 @@ def build_parser():
                        help='Google Cloud project ID (gee source; implies --source gee)')
     fetch.add_argument('--keep-cloud', action='store_true',
                        help='Also write a Cloud (fraction) column')
+    fetch.add_argument('--plot', nargs='?', const='', metavar='PNG',
+                       help='Save a raw-vs-SILO-vs-adjusted comparison plot '
+                            '(silo source; default name derived from --output)')
 
     sub.add_parser('gee-logout', help='Delete stored Earth Engine credentials')
     return parser
@@ -80,6 +83,17 @@ def run_fetch(args):
     df = finalize(df, rain_units=args.rain_units, keep_cloud=args.keep_cloud)
     write_met_csv(df, args.output, timestep=source.timestep)
     print(f"[INFO] Saved {len(df)} rows to {args.output}")
+
+    if args.plot is not None:
+        comparison = getattr(source, 'comparison', None)
+        if comparison is None:
+            print("[WARN] --plot is only available for --source silo")
+        else:
+            from .plots import plot_silo_comparison
+            plot_path = args.plot or (os.path.splitext(args.output)[0]
+                                      + '_silo_comparison.png')
+            plot_silo_comparison(comparison['base'], comparison['daily'],
+                                 comparison['adjusted'], plot_path)
 
 
 def main(argv=None):
